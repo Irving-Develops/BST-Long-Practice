@@ -95,10 +95,49 @@ function countNodes (rootNode) {
 
 function balancedTree (rootNode) {
   // Your code here
+    let left = leftCalculate(rootNode)
+    let right = rightCalculate(rootNode)
+
+    function leftCalculate(rootNode) {
+      if (rootNode === null) return 0;
+
+      return 1 + leftCalculate(rootNode.left)
+    }
+
+    function rightCalculate(rootNode) {
+      if (rootNode === null) return 0;
+
+      return 1 + rightCalculate(rootNode.right)
+    }
+
+    if(right > left + 1) return false;
+    else if(left > right + 1) return false;
+    else return true;
+
 }
 
 function getParentNode (rootNode, target) {
   // Your code here
+
+
+      // Put the starting node in a queue
+      if(rootNode.val === target) return null;
+      const queue = [rootNode];
+
+      // While the queue is not empty
+      while (queue.length) {
+
+        // Dequeue a node and print it
+        let rootNode = queue.shift();
+        if(rootNode.right.val === target || rootNode.left.val === target) return rootNode.val;
+        // Put all of the rootNode's children in the back of the queue
+        if (rootNode.left) queue.push(rootNode.left);
+        if (rootNode.right) queue.push(rootNode.right);
+      }
+      return undefined;
+
+
+
 }
 
 function inOrderPredecessor (rootNode, target) {
