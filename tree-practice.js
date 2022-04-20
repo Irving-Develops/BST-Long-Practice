@@ -50,11 +50,47 @@ function findMaxBT (rootNode) {
 }
 
 function getHeight (rootNode) {
-  // Your code here
+
+  let left = leftCalculate(rootNode)
+  let right = rightCalculate(rootNode)
+
+  function leftCalculate(rootNode) {
+    if (rootNode === null) return 0;
+
+    return 1 + leftCalculate(rootNode.left)
+  }
+
+  function rightCalculate(rootNode) {
+    if (rootNode === null) return 0;
+
+    return 1 + rightCalculate(rootNode.right)
+  }
+
+  if (right > left) return right - 1;
+  else return left - 1;
 }
 
 function countNodes (rootNode) {
-  // Your code here
+  let total = 0;
+  let breadthFirstTraversal = () => {
+
+    // Put the starting node in a queue
+    const queue = [rootNode];
+
+    // While the queue is not empty
+    while (queue.length) {
+
+      // Dequeue a node and print it
+      let rootNode = queue.shift();
+      total += 1;
+
+      // Put all of the rootNode's children in the back of the queue
+      if (rootNode.left) queue.push(rootNode.left);
+      if (rootNode.right) queue.push(rootNode.right);
+    }
+    return total;
+  }
+  return breadthFirstTraversal();
 }
 
 function balancedTree (rootNode) {
