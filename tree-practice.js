@@ -129,19 +129,26 @@ function getParentNode (rootNode, target) {
 
         // Dequeue a node and print it
         let rootNode = queue.shift();
-        if(rootNode.right.val === target || rootNode.left.val === target) return rootNode.val;
+        if(rootNode.right && rootNode.right.val === target || rootNode.left && rootNode.left.val === target) return rootNode;
         // Put all of the rootNode's children in the back of the queue
         if (rootNode.left) queue.push(rootNode.left);
         if (rootNode.right) queue.push(rootNode.right);
       }
       return undefined;
 
-
-
 }
 
 function inOrderPredecessor (rootNode, target) {
   // Your code here
+  let arr = [];
+  let recurse = (rootNode) => {
+    if(!rootNode) return;
+    recurse(rootNode.left);
+    arr.push(rootNode.val);
+    recurse(rootNode.right);
+  }
+  let idx = arr.indexOf(target);
+  return arr[idx - 1];
 }
 
 
@@ -166,6 +173,18 @@ function deleteNodeBST(rootNode, target) {
 
 }
 
+let newTree = new BinarySearchTree();
+newTree.insert(4)
+newTree.insert(10)
+newTree.insert(3)
+newTree.insert(2)
+newTree.insert(9)
+newTree.insert(7)
+newTree.insert(1)
+
+console.log(newTree)
+console.log(getParentNode(3))
+
 module.exports = {
     findMinBST,
     findMaxBST,
@@ -178,3 +197,4 @@ module.exports = {
     inOrderPredecessor,
     deleteNodeBST
 }
+
