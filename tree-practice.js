@@ -147,6 +147,7 @@ function inOrderPredecessor (rootNode, target) {
     arr.push(rootNode.val);
     recurse(rootNode.right);
   }
+  recurse();
   let idx = arr.indexOf(target);
   return arr[idx - 1];
 }
